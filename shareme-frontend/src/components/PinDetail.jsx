@@ -32,9 +32,15 @@ const PinDetail = ({ user }) => {
     }
   };
 
+
   useEffect(() => {
     fetchPinDetails();
+
   }, [pinId]);
+
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, [pins]);
 
   const addComment = () => {
     if (comment) {
@@ -62,55 +68,67 @@ const PinDetail = ({ user }) => {
   return (
     <>
       {pinDetail && (
-        <div className="flex xl:flex-row flex-col m-auto bg-white" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
-          <div className="flex justify-center items-center md:items-start flex-initial">
+        <div className="flex xl:flex-row flex-col m-auto bg-[#0b0d18] rounded-3xl  h-fit  w-fit relative" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
+          <div className="flex justify-center items-center md:items-start flex-initial mr-5">
+            <div className='overflow-hidden w-full    rounded-lg my-auto ml-5'>
             <img
-              className="rounded-t-3xl rounded-b-lg"
+              className=" max-h-full  object-cover items-center  my-5  rounded-3xl "
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
               alt="user-post"
             />
           </div>
+          </div>
           <div className="w-full p-5 flex-1 xl:min-w-620">
-            <div className="flex items-center justify-between">
-              <div className="flex gap-2 items-center">
+          <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-[#0b0d18] rounded-lg ">
+              <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
+              <p className="font-bold text-gray-400">{pinDetail?.postedBy.userName}</p>
+            </Link>
+
+
+            <div className="flex items-center justify-between absolute top-10 right-10">
+              <div className="">
                 <a
                   href={`${pinDetail.image.asset.url}?dl=`}
                   download
-                  className="bg-secondaryColor p-2 text-xl rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100"
+                  className="bg-[#00BFFF] p-2 text-xl text-white  rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100"
                 >
                   <MdDownloadForOffline />
                 </a>
               </div>
-              <a href={pinDetail.destination} target="_blank" rel="noreferrer">
+              {/* <a href={pinDetail.destination} target="_blank" rel="noreferrer">
                 {pinDetail.destination?.slice(8)}
-              </a>
+              </a> */}
             </div>
+
+
             <div>
-              <h1 className="text-4xl font-bold break-words mt-3">
+              <h1 className="text-xl font-bold  text-gray-100 break-words mt-3">
                 {pinDetail.title}
               </h1>
-              <p className="mt-3">{pinDetail.about}</p>
+              <p className="mt-0 text-gray-300">{pinDetail.about}</p>
             </div>
-            <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
-              <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-              <p className="font-bold">{pinDetail?.postedBy.userName}</p>
-            </Link>
-            <h2 className="mt-5 text-2xl">Comments</h2>
-            <div className="max-h-370 overflow-y-auto">
+            
+       
+            <h2 className="mt-5 text-l text-gray-400">Comments</h2>
+            <div className="max-h-370 overflow-y-auto   ">
               {pinDetail?.comments?.map((item) => (
-                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={item.comment}>
+                <div className="flex gap-2 mt-5  ml-5 items-center bg-[#0b0d18] rounded-lg" key={item.comment}>
                   <img
                     src={item.postedBy?.image}
-                    className="w-10 h-10 rounded-full cursor-pointer"
+                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
                     alt="user-profile"
                   />
-                  <div className="flex flex-col">
-                    <p className="font-bold">{item.postedBy?.userName}</p>
-                    <p>{item.comment}</p>
+                  <div className="flex flex-col rounded-2xl px-2 py-1 bg-[#eceffa0e]">
+                    <p className="font-bold text-[12px] text-gray-300">{item.postedBy?.userName}</p>
+                    <p className='text-gray-400'>{item.comment}</p>
                   </div>
                 </div>
               ))}
             </div>
+
+
+
+
             <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user._id}`}>
                 <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
@@ -124,7 +142,7 @@ const PinDetail = ({ user }) => {
               />
               <button
                 type="button"
-                className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
+                className="bg-[#00BFFF] text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
                 {addingComment ? 'Doing...' : 'Done'}
@@ -134,7 +152,7 @@ const PinDetail = ({ user }) => {
         </div>
       )}
       {pins?.length > 0 && (
-        <h2 className="text-center font-bold text-2xl mt-8 mb-4">
+        <h2 className="text-center text-gray-300  font-bold text-2xl mt-8 mb-4">
           More like this
         </h2>
       )}

@@ -1,21 +1,43 @@
-    import React, { useState } from 'react';
-    import { Link, useNavigate } from 'react-router-dom';
+    import React, { useState ,useEffect} from 'react';
+    import { Link, useNavigate , useLocation } from 'react-router-dom';
     import { v4 as uuidv4 } from 'uuid';
     import { MdDownloadForOffline } from 'react-icons/md';
     import { AiTwotoneDelete } from 'react-icons/ai';
     import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
-
     import { client, urlFor } from '../client';
 
     const Pin = ({ pin }) => {
-    const [postHovered, setPostHovered] = useState(false);
-    const [savingPost, setSavingPost] = useState(false);
+
+    const [postHovered, setPostHovered]  = useState(false);
+    const [savingPost, setSavingPost]    = useState(false);
+    const [pageLocation,setPageLocation] = useState("");
+
 
     const navigate = useNavigate();
+    const locations =useLocation();
+    
+
+    
+
+
+useEffect(()=>{
+
+        if(locations.pathname.includes("user-profile")){
+                setPageLocation(false);
+        }  else {
+            setPageLocation(true);
+        }
+
+},[locations])
+
+
+
+
+
 
     const { postedBy, image, _id, destination } = pin;
-
     const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+
 
     const deletePin = (id) => {
         client
@@ -79,7 +101,7 @@
                     </a>
                 </div>
                 {alreadySaved?.length !== 0 ? (
-                    <button type="button" className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
+                    <button type="button"className="bg-[#00BFFF] text-[10px] opacity-70 hover:opacity-100 text-white font-bold px-3 py-0 text-base rounded hover:shadow-md outline-none">
                     {pin?.save?.length}  Saved
                     </button>
                 ) : (
@@ -89,7 +111,7 @@
                         savePin(_id);
                     }}
                     type="button"
-                    className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                    className="bg-[#00BFFF] opacity-70 hover:opacity-100 text-[10px]  text-white font-bold px-3 py-0 text-base rounded hover:shadow-md outline-none"
                     >
                     {pin?.save?.length}   {savingPost ? 'Saving' : 'Save'}
                     </button>
@@ -126,16 +148,28 @@
             </div>
             )}
         </div>
-        <Link to={`/user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 mb-[20px] mt-[8px] items-center ml-3">
-            <div className='overflow-hidden rounded-full  w-[18px] h-[18px]'>
-            <img
-            className="  object-cover"
-            src={postedBy?.image}
-            alt="user-profile"
-            />
-            </div>
-            <p className="font-semibold capitalize text-[12px] text-gray-400">{postedBy?.userName}</p>
-        </Link>
+
+
+
+
+{pageLocation && (
+ <Link to={`/user-profile/${postedBy?._id}`} className="flex gap-2  mb-[20px] mt-[8px] items-center ml-3">
+ <div className='overflow-hidden rounded-full  w-[18px] h-[18px]'>
+ <img
+ className="  object-cover"
+ src={postedBy?.image}
+ alt="user-profile"
+ />
+ </div>
+ <p className="font-semibold capitalize text-[12px] text-gray-400">{postedBy?.userName}</p>
+</Link>
+)}
+       
+
+
+
+
+
         </div>
     );
     };

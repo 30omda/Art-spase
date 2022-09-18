@@ -3,7 +3,7 @@
     import { useNavigate } from 'react-router-dom';
     import { FcGoogle } from 'react-icons/fc';
     import shareVideo from '../assets/share.mp4';
-    import logowhite from '../assets/logoWhite.png';
+    import logo from '../assets/logo.png';
 
     import { client } from '../client';
 
@@ -38,7 +38,7 @@
 
             <div className="absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0    bg-blackOverlay">
             <div className="p-5">
-                <img src={logowhite} width="130px" alt=""/>
+                <img src={logo} width="200px" alt=""/>
             </div>
 
             <div className="shadow-2xl">
@@ -47,7 +47,7 @@
                 render={(renderProps) => (
                     <button
                     type="button"
-                    className="font-bold text-white bg-gradient-to-r from-indigo-100 rounded-lg flex justify-center items-center  curser-pointer p-3 outline-none"
+                    className="font-bold text-white bg-gradient-to-r from-[#00BFFF] rounded-lg flex justify-center items-center  curser-pointer p-3 outline-none"
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}
                     >

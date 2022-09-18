@@ -2,14 +2,13 @@
     import { AiOutlineLogout } from 'react-icons/ai';
     import { useParams, useNavigate } from 'react-router-dom';
     import { GoogleLogout } from 'react-google-login';
-
     import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
     import { client } from '../client';
     import MasonryLayout from './MasonryLayout';
     import Spinner from './Spinner';
 
-    const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
-    const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
+    const activeBtnStyles = 'bg-[#00BFFF] text-white font-bold p-2 rounded-full w-20 outline-none';
+    const notActiveBtnStyles = 'bg-primary  text-white font-bold p-2 rounded-full w-20 outline-none';
 
     const UserProfile = () => {
     const [user, setUser] = useState();
@@ -58,20 +57,21 @@
             <div className="relative flex flex-col mb-7">
             <div className="flex flex-col justify-center items-center">
                 <img
-                className=" w-full h-370 2xl:h-510 shadow-lg object-cover"
+                className=" w-full h-[100px] 2xl:h-[200px] shadow-lg object-cover"
                 src="https://source.unsplash.com/1600x900/?nature,photography,technology"
                 alt="user-pic"
                 />
-                <img
-                className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
-                src={user.image}
-                alt="user-pic"
-                />
+
+                    <img
+                    className="rounded-full w-40 h-40 -mt-10 shadow-xl object-cover"
+                    src={user.image}
+                    alt="user-pic"
+                    />
             </div>
-            <h1 className="font-bold text-3xl text-center mt-3">
+            <h1 className="font-bold text-3xl text-gray-400 text-center mt-3">
                 {user.userName}
             </h1>
-            <div className="absolute top-0 z-1 right-0 p-2">
+            {/* <div className="absolute top-0 z-1 right-0 p-2">
                 {userId === User.googleId && (
                 <GoogleLogout
                     clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
@@ -89,7 +89,7 @@
                     cookiePolicy="single_host_origin"
                 />
                 )}
-            </div>
+            </div> */}
             </div>
             <div className="text-center mb-7">
             <button

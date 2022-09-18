@@ -41,7 +41,7 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-    if (title && about && destination && imageAsset?._id && category) {
+    if (title && about  && imageAsset?._id && category) {
       const doc = {
         _type: 'pin',
         title,
@@ -80,9 +80,9 @@ const CreatePin = ({ user }) => {
       {fields && (
         <p className="text-red-500 mb-5 text-xl transition-all duration-150 ease-in ">Please add all fields.</p>
       )}
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
-        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
-          <div className=" flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-420">
+      <div className=" flex xl:flex-row flex-col justify-center items-center bg-[#0b0d18] lg:p-5 p-3 lg:w-4/5  w-full">
+        <div className=" bg-[#1f3b6e93] p-3 flex flex-0.7 w-full ">
+          <div className=" flex justify-center items-center flex-col border-2  border-gray-300 p-3 w-full h-420 relative">
             {loading && (
               <Spinner />
             )}
@@ -94,15 +94,15 @@ const CreatePin = ({ user }) => {
             {!imageAsset ? (
               // eslint-disable-next-line jsx-a11y/label-has-associated-control
               <label>
-                <div className="flex flex-col items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center h-full  ">
                   <div className="flex flex-col justify-center items-center">
-                    <p className="font-bold text-2xl">
+                    <p className="font-bold text-2xl text-white">
                       <AiOutlineCloudUpload />
                     </p>
-                    <p className="text-lg">Click to upload</p>
+                    <p className="text-lg text-white">Click to upload</p>
                   </div>
 
-                  <p className="mt-32 text-gray-400">
+                  <p className=" text-gray-400 text-[12px] w-[80%] absolute bottom-1 left-1">
                     Recommendation: Use high-quality JPG, JPEG, SVG, PNG, GIF or TIFF less than 20MB
                   </p>
                 </div>
@@ -114,11 +114,14 @@ const CreatePin = ({ user }) => {
                 />
               </label>
             ) : (
-              <div className="relative h-full">
+              
+              <div className="relative  w-full overflow-hidden  h-fit">
+
+              
                 <img
                   src={imageAsset?.url}
                   alt="uploaded-pic"
-                  className="h-full w-full"
+                  className="  object-cover "
                 />
                 <button
                   type="button"
@@ -128,55 +131,62 @@ const CreatePin = ({ user }) => {
                   <MdDelete />
                 </button>
               </div>
+            
             )}
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Add your title"
-            className="outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2"
-          />
-          {user && (
-            <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg ">
+
+        <div className="flex flex-1 flex-col gap-6  lg:pl-5 mt-5 w-full">
+
+        {user && (
+            <div className="flex gap-2 mt-2 mb-2 items-center bg-[#0b0d18] rounded-lg ">
               <img
                 src={user.image}
                 className="w-10 h-10 rounded-full"
                 alt="user-profile"
               />
-              <p className="font-bold">{user.userName}</p>
+              <p className="font-bold text-gray-400">{user.userName}</p>
             </div>
           )}
+
+
+
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Add your title"
+            className="outline-none text-2xl sm:text-3xl font-bold border-b-2 text-white  bg-[#0b0d18] border-gray-200 p-2"
+          />
+          
           <input
             type="text"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
             placeholder="Tell everyone what your Pin is about"
-            className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"
+            className="outline-none text-base sm:text-lg border-b-2 bg-[#0b0d18] text-white border-gray-200 p-2"
           />
           <input
             type="url"
             vlaue={destination}
-            onChange={(e) => setDestination(e.target.value)}
+          
             placeholder="Add a destination link"
-            className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"
+            className="outline-none text-base sm:text-lg border-b-2 bg-[#0b0d18] text-white border-gray-200 p-2"
           />
 
           <div className="flex flex-col">
             <div>
-              <p className="mb-2 font-semibold text:lg sm:text-xl">Choose Pin Category</p>
+              {/* <p className="mb-1  text:lg sm:text-l text-gray-400">Choose Pin Category</p> */}
               <select
                 onChange={(e) => {
                   setCategory(e.target.value);
                 }}
-                className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+                className="outline-none w-4/5 text-base border-b-2 bg-[#0b0d18] text-gray-400 border-gray-200 p-2 rounded-md cursor-pointer"
               >
-                <option value="others" className="sm:text-bg bg-white">Select Category</option>
+                <option value="others" className="sm:text-bg  text-gray-400  bg-[#0b0d18]">Choose Pin Category</option>
                 {categories.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-white text-black " value={item.name}>
+                  <option className="text-base outline-none capitalize bg-[#1f3b6e93] text-gray-400  " value={item.name}>
                     {item.name}
                   </option>
                 ))}
@@ -186,7 +196,7 @@ const CreatePin = ({ user }) => {
               <button
                 type="button"
                 onClick={savePin}
-                className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none"
+                className="bg-[#00BFFF] text-white font-bold p-2 rounded-full w-28 outline-none"
               >
                 Save Pin
               </button>
