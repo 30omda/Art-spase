@@ -57,13 +57,13 @@
             <div className="relative flex flex-col mb-7">
             <div className="flex flex-col justify-center items-center">
                 <img
-                className=" w-full h-[100px] 2xl:h-[200px] shadow-lg object-cover"
+                className=" w-full  h-[100px] 2xl:h-[200px] shadow-lg object-cover"
                 src="https://source.unsplash.com/1600x900/?nature,photography,technology"
                 alt="user-pic"
                 />
 
                     <img
-                    className="rounded-full w-40 h-40 -mt-10 shadow-xl object-cover"
+                    className="rounded-full border-[5px] border-[#00BFFF] p-[4px] w-40 h-40 -mt-10 shadow-xl object-cover"
                     src={user.image}
                     alt="user-pic"
                     />

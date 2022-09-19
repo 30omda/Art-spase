@@ -5,6 +5,7 @@
     import logo from '../assets/logo.png';
     import { categories } from '../utils/data';
     import { useNavigate } from 'react-router-dom';
+    
     const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-white transition-all duration-200 ease-in-out capitalize';
     const isActiveStyle = 'flex items-center px-5 gap-3 font-bold border-r-2 border-[#00BFFF] text-[#00BFFF] transition-all duration-200 ease-in-out capitalize';
 
@@ -19,7 +20,7 @@
         navigate('/login');
     };
     return (
-        <div className="flex flex-col justify-between bg-[#0b0d18] h-full overflow-y-scroll min-w-210 hide-scrollbar">
+        <div className="flex flex-col justify-between bg-[#0b0d18] h-full overflow-y-scroll w-fit hide-scrollbar">
         <div className="flex flex-col">
             <Link
             to="/"
@@ -28,6 +29,20 @@
             >
             <img src={logo} alt="logo" className="w-full  hidden  md:block" />
             </Link>
+
+
+            {user && (
+           
+            <Link
+             to={`user-profile/${user._id}`}
+             className="flex my-5 mb-3 gap-2 p-2 items-center bg-[#ffffff00] text-gray-400 block md:hidden rounded-lg shadow-lg mx-3"
+             onClick={handleCloseSidebar}
+             >
+             <img src={user.image} className="w-10 h-10 border-[2px]  border-[#00BFFF] p-[2px] rounded-full" alt="user-profile" />
+             <p>{user.userName}</p> 
+           <IoIosArrowForward />
+          </Link>
+        )}
             <div className="flex flex-col gap-5">
 
             <NavLink
@@ -57,15 +72,7 @@
         </div>
         {user && (
             <button onClick={logout} className='py-1 font-bold px-3 bg-[#00BFFF] hover:opacity-70 text-white rounded-lg m-5 duration-300 ease-in-out'>Logout</button>
-            // <Link
-            // to={`user-profile/${user._id}`}
-            // className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3"
-            // onClick={handleCloseSidebar}
-            // >
-            /* <img src={user.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-            <p>{user.userName}</p> */
-            // <IoIosArrowForward />
-            // </Link>
+
         )}
         </div>
     );
