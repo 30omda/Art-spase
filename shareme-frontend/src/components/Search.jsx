@@ -8,9 +8,10 @@ import Spinner from './Spinner';
 const Search = ({ searchTerm }) => {
   const [pins, setPins] = useState();
   const [loading, setLoading] = useState(false);
+  const regex = /^([a-zA-Z])/g;
 
   useEffect(() => {
-    if (searchTerm !== '') {
+    if (searchTerm !== '' && regex.test(searchTerm) == true) {
       setLoading(true);
       const query = searchQuery(searchTerm.toLowerCase());
       client.fetch(query).then((data) => {
@@ -24,13 +25,14 @@ const Search = ({ searchTerm }) => {
       });
     }
   }, [searchTerm]);
+  
 
   return (
     <div>
 
       {loading && <Spinner message="Searching pins" />}
       {pins?.length !== 0 && <MasonryLayout pins={pins} />}
-      {pins?.length === 0 && searchTerm !== '' && !loading && (
+      {pins?.length === 0 && searchTerm == ''  &&  !loading && (
         <div className="mt-10 text-center text-xl text-[#00BFFF]  ">No Pins Found!</div>
       )}
     </div>
